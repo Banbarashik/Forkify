@@ -81,10 +81,17 @@ const controlBookmarksLoad = function () {
 
 const controlRecipeUpload = async function (newRecipe) {
   try {
-    addRecipeView.renderSpinner();
+    // Close modal window
+    addRecipeView.toggleHidden();
+
+    // Display spinner in recipeView
+    recipeView.renderSpinner();
 
     // Upload the recipe from user's form
     await model.uploadRecipe(newRecipe);
+
+    // Show success message in the top right corner
+    addRecipeView.renderNotification();
 
     // URL: replace prev recipe's ID with the new ID
     history.pushState('', '', `#${model.state.recipe.id}`);
@@ -98,16 +105,8 @@ const controlRecipeUpload = async function (newRecipe) {
     // Render the newly created recipe
     recipeView.render(model.state.recipe);
 
-    // Show the success message
-    addRecipeView.renderMessage();
-
     // Update the results to mark the created recipe
     resultsView.update(model.getSearchResultsByPage());
-
-    // Close the success message after 2.5s
-    setTimeout(function () {
-      addRecipeView.toggleHidden();
-    }, MODAL_CLOSE_SEC * 1000);
   } catch (err) {
     console.error(err);
   }

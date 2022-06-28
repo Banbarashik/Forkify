@@ -211,3 +211,27 @@
     font-weight: 600;
   }
 }
+
+.notification {
+  position: fixed;
+  top: 2rem;
+  right: 1rem;
+
+  display: flex;
+  align-items: center;
+  width: 30rem;
+  height: 10rem;
+  padding: 0 3rem;
+  border-radius: 9px;
+
+  background-color: white;
+  opacity: 0;
+
+  transform: translateY(calc(-100% - 2rem));
+  transition: all 0.5s;
+}
+
+.notification.active {
+  transform: translateY(0);
+  opacity: 1;
+}

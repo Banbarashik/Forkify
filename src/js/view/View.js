@@ -89,4 +89,30 @@ export default class View {
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
+
+  renderNotification() {
+    const markup = `
+      <div class="message notification">
+        <div>
+          <svg>
+            <use href="${icons}#icon-smile"></use>
+          </svg>
+        </div>
+        <p>${this._message}</p>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', markup);
+    const notifEl = document.querySelector('.notification');
+    const _toggleNotif = () => notifEl.classList.toggle('active');
+
+    // Async to trigger a transition event
+    setTimeout(_toggleNotif, 0);
+    setTimeout(function () {
+      notifEl.addEventListener('transitionend', function () {
+        this.remove();
+      });
+      _toggleNotif();
+    }, 2000);
+  }
 }
