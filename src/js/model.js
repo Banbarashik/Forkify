@@ -92,6 +92,10 @@ const storeBookmarks = function () {
 
 export const loadBookmarks = function () {
   const bookmarksStr = localStorage.getItem('bookmarks');
+
+  // Don't overwrite [bookmarks] if localStorage is empty
+  if (!bookmarksStr) return;
+
   state.bookmarks = JSON.parse(bookmarksStr);
 };
 
