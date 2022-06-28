@@ -25,13 +25,22 @@ class paginationView extends View {
     // Only 1 page
     if (totalPages === 1) return '';
     // 1st page, others
-    if (this._data.page === 1)
-      return this._generateMarkupButton(curPage, 'next');
+    if (curPage === 1)
+      return (
+        this._generateMarkupButton(curPage, 'next') +
+        this._generateNumOfPagesBlock()
+      );
     // Last page
-    if (this._data.page === totalPages)
-      return this._generateMarkupButton(curPage, 'prev');
+    if (curPage === totalPages)
+      return (
+        this._generateMarkupButton(curPage, 'prev') +
+        this._generateNumOfPagesBlock()
+      );
     // Middle page
-    return this._generateMarkupButton(curPage, 'both');
+    return (
+      this._generateMarkupButton(curPage, 'both') +
+      this._generateNumOfPagesBlock()
+    );
   }
 
   _generateMarkupButton(curPage, direction) {
@@ -67,6 +76,21 @@ class paginationView extends View {
         this._generateMarkupButton(curPage, 'next')
       );
     }
+  }
+
+  _generateNumOfPagesBlock() {
+    const curPage = this._data.page;
+    const totalPages = Math.ceil(
+      this._data.results / this._data.resultsPerPage
+    );
+
+    return `
+      <div class="pagination__num-of-pages">
+        <span>
+          ${curPage} / ${totalPages}
+        </span>
+      </div>
+    `;
   }
 }
 
