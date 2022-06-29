@@ -127,6 +127,28 @@ export const deleteBookmark = function () {
 
 export const uploadRecipe = async function (newRecipe) {
   try {
+    // TODO: create code to work with 'ingr-1-q, ingr-1-u, ingr-1-d' format
+    console.log(Object.entries(newRecipe));
+    const ingrs = [];
+    // debugger;
+    for (let i = 1; i <= 6; i++) {
+      const arr = Object.entries(newRecipe).filter(entry =>
+        entry[0].startsWith(`ingredient-${i}`)
+      );
+      console.log(arr);
+      const recObj = {
+        quantity: arr[0][1],
+        unit: arr[1][1],
+        description: arr[2][1],
+      };
+      console.log(recObj);
+      // ingrs.push(recObj);
+    }
+    console.log(ingrs);
+
+    // Create a property 'ingredient' containing recipes' objects in
+    // {quantity, unit, description} format
+    /*
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
       .map(ing => {
@@ -138,6 +160,7 @@ export const uploadRecipe = async function (newRecipe) {
         };
         return ingsObj;
       });
+    */
 
     const userRecipe = {
       title: newRecipe.title,

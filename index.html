@@ -280,11 +280,25 @@
           <h3 class="upload__heading">Ingredients</h3>
           <label>Ingredient 1</label>
           <input
-            value="0.5,kg,Rice"
+            value="0.5"
             type="text"
             required
-            name="ingredient-1"
-            placeholder="Format: 'Quantity,Unit,Description'"
+            name="ingredient-1-quantity"
+            placeholder="Quantity"
+          />
+          <input
+            value="kg"
+            type="text"
+            required
+            name="ingredient-1-unit"
+            placeholder="Unit"
+          />
+          <input
+            value="Rice"
+            type="text"
+            required
+            name="ingredient-1-description"
+            placeholder="Description"
           />
           <label>Ingredient 2</label>
           <input
