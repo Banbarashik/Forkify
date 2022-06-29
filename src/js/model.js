@@ -129,23 +129,22 @@ export const uploadRecipe = async function (newRecipe) {
   try {
     // TODO: create code to work with 'ingr-1-q, ingr-1-u, ingr-1-d' format
     console.log(Object.entries(newRecipe));
-    const ingrs = [];
-    // debugger;
+
+    const ingredients = [];
     for (let i = 1; i <= 6; i++) {
       const arr = Object.entries(newRecipe).filter(entry =>
         entry[0].startsWith(`ingredient-${i}`)
       );
       console.log(arr);
       const recObj = {
-        quantity: arr[0][1],
+        quantity: arr[0][1] ? arr[0][1] : null,
         unit: arr[1][1],
         description: arr[2][1],
       };
       console.log(recObj);
-      // ingrs.push(recObj);
+      ingredients.push(recObj);
     }
-    console.log(ingrs);
-
+    console.log(ingredients);
     // Create a property 'ingredient' containing recipes' objects in
     // {quantity, unit, description} format
     /*
@@ -172,6 +171,7 @@ export const uploadRecipe = async function (newRecipe) {
       ingredients,
     };
 
+    console.log(userRecipe);
     const data = await AJAX(`${API_URL}?key=${API_KEY}`, userRecipe);
 
     // Response: recipe with id and key
