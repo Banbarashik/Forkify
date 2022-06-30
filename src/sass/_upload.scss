@@ -92,6 +92,19 @@
     grid-column: 1/-1;
   }
 
+  &__ingredients {
+    display: flex;
+    gap: 1rem;
+
+    input {
+      width: 100%;
+
+      &:last-child {
+        width: 300%;
+      }
+    }
+  }
+
   &__btn {
     grid-column: 1 / -1;
     justify-self: center;
