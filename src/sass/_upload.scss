@@ -82,6 +82,15 @@
       justify-self: center;
       margin-top: 1rem;
     }
+
+    &--ingredients {
+      display: flex;
+      flex-direction: column;
+
+      .upload__heading {
+        align-self: start;
+      }
+    }
   }
 
   &__heading {
