@@ -18,7 +18,9 @@ class addRecipeView extends View {
 
     this._showModal();
     this._closeModal();
-    this._delIngr();
+
+    this._parentElement.addEventListener('click', this._addIngr.bind(this));
+    this._parentElement.addEventListener('click', this._delIngr.bind(this));
   }
 
   addHandlerUploadBtn(handler) {
@@ -28,71 +30,6 @@ class addRecipeView extends View {
       const newRecipe = Object.fromEntries(new FormData(this));
 
       handler(newRecipe);
-    });
-  }
-
-  _delIngr() {
-    this._parentElement.addEventListener('click', function (e) {
-      e.preventDefault();
-      const btn = e.target.closest('.btn--ingrs');
-      if (!btn) return;
-
-      if (btn.classList.contains('btn--del-ingr')) btn.parentElement.remove();
-
-      if (btn.classList.contains('btn--add-ingr')) {
-        const index = this.querySelectorAll('.upload__ingredient').length + 1;
-        const markup = `
-          <div class="upload__ingredient">
-            <label>Ingredient ${index}</label>
-            <input
-              type="text"
-              name="ingredient-${index}-quantity"
-              placeholder="Quantity"
-            />
-            <input type="text" name="ingredient-${index}-unit" placeholder="Unit" />
-            <input
-              value="salt"
-              type="text"
-              name="ingredient-${index}-description"
-              placeholder="Description"
-            />
-            <button class="btn--tiny btn--ingrs btn--del-ingr">
-              <svg>
-                <use href="${icons}#icon-minus-circle"></use>
-              </svg>
-            </button>
-            <button class="btn--tiny btn--ingrs btn--add-ingr">
-              <svg>
-                <use href="${icons}#icon-plus-circle"></use>
-              </svg>
-            </button>
-          </div>
-        `;
-
-        btn.parentElement.insertAdjacentHTML('afterend', markup);
-        btn.remove();
-        return;
-      }
-
-      this.querySelectorAll('.upload__ingredient').forEach((ingr, i, arr) => {
-        ingr.querySelector('label').textContent = `Ingredient ${i + 1}`;
-        ingr
-          .querySelectorAll('input')
-          .forEach(input => (input.name = input.name.replace(/[0-9]/g, i + 1)));
-
-        if (arr.length === i + 1 && !ingr.querySelector('.btn--add-ingr')) {
-          ingr.insertAdjacentHTML(
-            'beforeend',
-            `
-              <button class="btn--tiny btn--ingrs btn--add-ingr">
-                <svg>
-                  <use href="${icons}#icon-plus-circle"></use>
-                </svg>
-              </button>
-            `
-          );
-        }
-      });
     });
   }
 
@@ -110,7 +47,94 @@ class addRecipeView extends View {
     this._closeBtn.addEventListener('click', this.toggleHidden.bind(this));
   }
 
+  _addIngr(e) {
+    e.preventDefault();
+    const btn = e.target.closest('.btn--add-ingr');
+    if (!btn) return;
+
+    // Index for the new&last field
+    const index =
+      this._parentElement.querySelectorAll('.upload__ingredient').length + 1;
+
+    // Add a new field with the (+) btn
+    btn.parentElement.insertAdjacentHTML(
+      'afterend',
+      this._generateMarkupIngrField(index)
+    );
+
+    // Remove the (+) btn from the previous field
+    btn.remove();
+  }
+
+  _delIngr(e) {
+    e.preventDefault();
+    const btn = e.target.closest('.btn--del-ingr');
+    if (!btn) return;
+
+    // Delete the field
+    btn.parentElement.remove();
+
+    const ingrsArr = Array.from(
+      this._parentElement.querySelectorAll('.upload__ingredient')
+    );
+    const lastIngr = ingrsArr[ingrsArr.length - 1];
+
+    // Update the num where it's necessary
+    ingrsArr.forEach((ingr, i) => {
+      const label = ingr.querySelector('label');
+      const inputs = ingr.querySelectorAll('input');
+
+      label.textContent = `Ingredient ${i + 1}`;
+      inputs.forEach(
+        input => (input.name = input.name.replace(/[0-9]/g, i + 1))
+      );
+    });
+
+    // Add (+) btn to the last field if there wasn't one yet
+    if (!lastIngr.querySelector('.btn--add-ingr'))
+      lastIngr.insertAdjacentHTML('beforeend', this._generateMarkupAddBtn());
+  }
+
   _generateMarkup() {}
+
+  _generateMarkupAddBtn() {
+    return `
+      <button class="btn--tiny btn--ingrs btn--add-ingr">
+        <svg>
+          <use href="${icons}#icon-plus-circle"></use>
+        </svg>
+      </button>
+    `;
+  }
+
+  _generateMarkupIngrField(i) {
+    return `
+      <div class="upload__ingredient">
+        <label>Ingredient ${i}</label>
+        <input
+          type="text"
+          name="ingredient-${i}-quantity"
+          placeholder="Quantity"
+        />
+        <input type="text" name="ingredient-${i}-unit" placeholder="Unit" />
+        <input
+          type="text"
+          name="ingredient-${i}-description"
+          placeholder="Description"
+        />
+        <button class="btn--tiny btn--ingrs btn--del-ingr">
+          <svg>
+            <use href="${icons}#icon-minus-circle"></use>
+          </svg>
+        </button>
+        <button class="btn--tiny btn--ingrs btn--add-ingr">
+          <svg>
+            <use href="${icons}#icon-plus-circle"></use>
+          </svg>
+        </button>
+      </div>
+    `;
+  }
 }
 
 export default new addRecipeView();
