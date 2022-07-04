@@ -101,7 +101,7 @@
     grid-column: 1/-1;
   }
 
-  &__ingredients {
+  &__ingredient {
     display: flex;
     gap: 1rem;
 
@@ -111,6 +111,10 @@
       &:last-child {
         width: 300%;
       }
+    }
+
+    button {
+      width: fit-content;
     }
   }
 

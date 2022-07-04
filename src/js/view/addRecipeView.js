@@ -18,6 +18,7 @@ class addRecipeView extends View {
 
     this._showModal();
     this._closeModal();
+    this._delIngr();
   }
 
   addHandlerUploadBtn(handler) {
@@ -27,6 +28,71 @@ class addRecipeView extends View {
       const newRecipe = Object.fromEntries(new FormData(this));
 
       handler(newRecipe);
+    });
+  }
+
+  _delIngr() {
+    this._parentElement.addEventListener('click', function (e) {
+      e.preventDefault();
+      const btn = e.target.closest('.btn--ingrs');
+      if (!btn) return;
+
+      if (btn.classList.contains('btn--del-ingr')) btn.parentElement.remove();
+
+      if (btn.classList.contains('btn--add-ingr')) {
+        const index = this.querySelectorAll('.upload__ingredient').length + 1;
+        const markup = `
+          <div class="upload__ingredient">
+            <label>Ingredient ${index}</label>
+            <input
+              type="text"
+              name="ingredient-${index}-quantity"
+              placeholder="Quantity"
+            />
+            <input type="text" name="ingredient-${index}-unit" placeholder="Unit" />
+            <input
+              value="salt"
+              type="text"
+              name="ingredient-${index}-description"
+              placeholder="Description"
+            />
+            <button class="btn--tiny btn--ingrs btn--del-ingr">
+              <svg>
+                <use href="${icons}#icon-minus-circle"></use>
+              </svg>
+            </button>
+            <button class="btn--tiny btn--ingrs btn--add-ingr">
+              <svg>
+                <use href="${icons}#icon-plus-circle"></use>
+              </svg>
+            </button>
+          </div>
+        `;
+
+        btn.parentElement.insertAdjacentHTML('afterend', markup);
+        btn.remove();
+        return;
+      }
+
+      this.querySelectorAll('.upload__ingredient').forEach((ingr, i, arr) => {
+        ingr.querySelector('label').textContent = `Ingredient ${i + 1}`;
+        ingr
+          .querySelectorAll('input')
+          .forEach(input => (input.name = input.name.replace(/[0-9]/g, i + 1)));
+
+        if (arr.length === i + 1 && !ingr.querySelector('.btn--add-ingr')) {
+          ingr.insertAdjacentHTML(
+            'beforeend',
+            `
+              <button class="btn--tiny btn--ingrs btn--add-ingr">
+                <svg>
+                  <use href="${icons}#icon-plus-circle"></use>
+                </svg>
+              </button>
+            `
+          );
+        }
+      });
     });
   }
 

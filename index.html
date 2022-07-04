@@ -278,7 +278,7 @@
 
         <div class="upload__column upload__column--ingredients">
           <h3 class="upload__heading">Ingredients</h3>
-          <div class="upload__ingredients">
+          <div class="upload__ingredient">
             <label>Ingredient 1</label>
             <input
               value="0.5"
@@ -299,8 +299,13 @@
               name="ingredient-1-description"
               placeholder="Description"
             />
+            <button class="btn--tiny btn--ingrs btn--del-ingr">
+              <svg>
+                <use href="src/img/icons.svg#icon-minus-circle"></use>
+              </svg>
+            </button>
           </div>
-          <div class="upload__ingredients">
+          <div class="upload__ingredient">
             <label>Ingredient 2</label>
             <input
               value="1"
@@ -317,7 +322,7 @@
               placeholder="Description"
             />
           </div>
-          <div class="upload__ingredients">
+          <div class="upload__ingredient">
             <label>Ingredient 3</label>
             <input
               type="text"
@@ -331,6 +336,11 @@
               name="ingredient-3-description"
               placeholder="Description"
             />
+            <button class="btn--tiny btn--ingrs btn--add-ingr">
+              <svg>
+                <use href="src/img/icons.svg#icon-plus-circle"></use>
+              </svg>
+            </button>
           </div>
         </div>
 
