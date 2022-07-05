@@ -80,7 +80,7 @@
     & button {
       grid-column: 1 / span 2;
       justify-self: center;
-      margin-top: 1rem;
+      // margin-top: 1rem;
     }
 
     &--ingredients {
@@ -102,19 +102,37 @@
   }
 
   &__ingredient {
+    position: relative;
     display: flex;
+    align-items: center;
     gap: 1rem;
+
+    label {
+      flex-shrink: 0;
+    }
 
     input {
       width: 100%;
+      height: min-content;
 
-      &:last-child {
+      &:last-of-type {
         width: 300%;
       }
     }
 
     button {
-      width: fit-content;
+      position: absolute;
+      top: 50%;
+      transform: translate(100%, -50%);
+    }
+
+    .btn--del-ingr {
+      right: -5px;
+      margin: 0;
+    }
+
+    .btn--add-ingr {
+      right: -30px;
     }
   }
 
