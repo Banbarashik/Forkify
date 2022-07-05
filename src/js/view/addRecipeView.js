@@ -48,7 +48,6 @@ class addRecipeView extends View {
   }
 
   _addIngr(e) {
-    e.preventDefault();
     const btn = e.target.closest('.btn--add-ingr');
     if (!btn) return;
 
@@ -67,7 +66,6 @@ class addRecipeView extends View {
   }
 
   _delIngr(e) {
-    e.preventDefault();
     const btn = e.target.closest('.btn--del-ingr');
     if (!btn) return;
 
@@ -99,7 +97,7 @@ class addRecipeView extends View {
 
   _generateMarkupAddBtn() {
     return `
-      <button class="btn--tiny btn--ingrs btn--add-ingr">
+      <button type="button" class="btn--tiny btn--ingrs btn--add-ingr">
         <svg>
           <use href="${icons}#icon-plus-circle"></use>
         </svg>
@@ -119,15 +117,16 @@ class addRecipeView extends View {
         <input type="text" name="ingredient-${i}-unit" placeholder="Unit" />
         <input
           type="text"
+          required
           name="ingredient-${i}-description"
           placeholder="Description"
         />
-        <button class="btn--tiny btn--ingrs btn--del-ingr">
+        <button type="button" class="btn--tiny btn--ingrs btn--del-ingr">
           <svg>
             <use href="${icons}#icon-minus-circle"></use>
           </svg>
         </button>
-        <button class="btn--tiny btn--ingrs btn--add-ingr">
+        <button type="button" class="btn--tiny btn--ingrs btn--add-ingr">
           <svg>
             <use href="${icons}#icon-plus-circle"></use>
           </svg>

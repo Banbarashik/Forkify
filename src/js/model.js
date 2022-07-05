@@ -127,6 +127,7 @@ export const deleteBookmark = function () {
 
 export const uploadRecipe = async function (newRecipe) {
   try {
+    /*
     const ingredients = [];
 
     for (let i = 1; i <= 6; i++) {
@@ -150,6 +151,7 @@ export const uploadRecipe = async function (newRecipe) {
 
       ingredients.push(recObj);
     }
+    */
 
     // Create a property 'ingredient' containing recipes' objects in
     // {quantity, unit, description} format
@@ -166,6 +168,30 @@ export const uploadRecipe = async function (newRecipe) {
         return ingsObj;
       });
     */
+
+    const ingrs = [];
+    const ingredients = Object.entries(newRecipe)
+      .filter(entry => entry[0].startsWith('ingredient'))
+      .reduce((prev, cur, i, arr) => {
+        if (arr.length - 1 === i) {
+          ingrs.push(prev.concat(cur));
+          return ingrs;
+        }
+        if (prev[0].replace(/\D/g, '') === cur[0].replace(/\D/g, ''))
+          return prev.concat(cur);
+
+        ingrs.push(prev);
+        return cur;
+      })
+      .map(el => el.filter(entry => !entry.startsWith('ingredient')))
+      .map(valuesArr => {
+        const [quantity, unit, description] = valuesArr;
+        return {
+          quantity: quantity ? +quantity : null,
+          unit,
+          description,
+        };
+      });
 
     const userRecipe = {
       title: newRecipe.title,
