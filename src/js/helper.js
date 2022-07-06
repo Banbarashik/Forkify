@@ -66,3 +66,7 @@ export const sendJSON = async function (url, recipe) {
   }
 };
 */
+
+export const storeLocalStorage = function (key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+};

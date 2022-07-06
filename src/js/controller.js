@@ -72,12 +72,13 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlBookmarksLoad = function () {
+const controlLocalStorageLoad = function () {
   // Load the bookmarks array from the localStorage
-  model.loadBookmarks();
+  model.loadLocalStorage();
 
   // Render the recieved bookmarks array
   bookmarksView.render(model.state.bookmarks);
+  shoppingCartView.render(model.state.products);
 };
 
 const controlShoppingCart = function (product) {
@@ -122,7 +123,8 @@ const controlRecipeUpload = async function (newRecipe) {
 };
 
 const init = function () {
-  bookmarksView.addHandlerRender(controlBookmarksLoad);
+  bookmarksView.addHandlerRender(controlLocalStorageLoad);
+  shoppingCartView.addHandlerRender(controlLocalStorageLoad);
   addRecipeView.addHandlerUploadBtn(controlRecipeUpload);
   shoppingCartView.addHandlerDelProduct(controlShoppingCart);
   recipeView.addHandlerRender(controlRecipes);

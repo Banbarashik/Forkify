@@ -1,4 +1,4 @@
-import { AJAX } from './helper';
+import { AJAX, storeLocalStorage } from './helper';
 import { RES_PER_PAGE, API_URL, API_KEY } from './config';
 
 export const state = {
@@ -87,17 +87,13 @@ export const updateServings = function (newServings) {
   });
 };
 
-const storeBookmarks = function () {
-  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
-};
-
-export const loadBookmarks = function () {
+export const loadLocalStorage = function () {
   const bookmarksStr = localStorage.getItem('bookmarks');
+  const productsStr = localStorage.getItem('products');
 
-  // Don't overwrite state.bookmarks if localStorage is empty
-  if (!bookmarksStr) return;
-
-  state.bookmarks = JSON.parse(bookmarksStr);
+  // Don't overwrite if localStorage is empty
+  if (bookmarksStr) state.bookmarks = JSON.parse(bookmarksStr);
+  if (productsStr) state.products = JSON.parse(productsStr);
 };
 
 export const addBookmark = function () {
@@ -109,7 +105,7 @@ export const addBookmark = function () {
   state.recipe.bookmarked = true;
 
   // Store the bookmarks array in the localStorage
-  storeBookmarks();
+  storeLocalStorage('bookmarks', state.bookmarks);
 };
 
 export const deleteBookmark = function () {
@@ -123,11 +119,12 @@ export const deleteBookmark = function () {
   state.recipe.bookmarked = false;
 
   // Update the bookmarks array in the localStorage
-  storeBookmarks();
+  storeLocalStorage('bookmarks', state.bookmarks);
 };
 
 export const addProducts = function () {
   state.products.push(...state.recipe.ingredients);
+  storeLocalStorage('products', state.products);
 };
 
 export const deleteProduct = function (product) {
@@ -139,6 +136,7 @@ export const deleteProduct = function (product) {
   );
 
   state.products.splice(index, 1);
+  storeLocalStorage('products', state.products);
 };
 
 export const uploadRecipe = async function (newRecipe) {
