@@ -112,10 +112,6 @@ export const addBookmark = function () {
   storeBookmarks();
 };
 
-export const addProducts = function () {
-  state.products.push(...state.recipe.ingredients);
-};
-
 export const deleteBookmark = function () {
   // Find the recipe in the array of bookmarked recipes
   const index = state.bookmarks.findIndex(rec => rec.id === state.recipe.id);
@@ -128,6 +124,21 @@ export const deleteBookmark = function () {
 
   // Update the bookmarks array in the localStorage
   storeBookmarks();
+};
+
+export const addProducts = function () {
+  state.products.push(...state.recipe.ingredients);
+};
+
+export const deleteProduct = function (product) {
+  const index = state.products.findIndex(
+    stateProduct =>
+      stateProduct.quantity === product.quantity &&
+      stateProduct.unit === product.unit &&
+      stateProduct.description === product.description
+  );
+
+  state.products.splice(index, 1);
 };
 
 export const uploadRecipe = async function (newRecipe) {

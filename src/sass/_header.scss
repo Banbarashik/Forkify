@@ -154,6 +154,18 @@
 .shoppingCart {
   @extend %hover-panel;
 
+  &__table {
+    width: 100%;
+    padding: 0 2rem;
+    table-layout: fixed;
+    border-spacing: 0 1.5rem;
+    font-size: 1.4rem;
+
+    th {
+      font-size: 1.6rem;
+    }
+  }
+
   &:hover,
   .nav__btn--shoppingCart:hover + & {
     visibility: visible;

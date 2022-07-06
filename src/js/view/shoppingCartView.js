@@ -2,13 +2,35 @@ import icons from 'url:./../../img/icons.svg';
 import View from './View.js';
 
 class shoppingCartView extends View {
-  _parentElement = document.querySelector('.shoppingCart__list');
+  _parentElement = document.querySelector('.shoppingCart__table');
   _data;
   _errorMessage =
     'No products yet. Find a nice recipe and add its ingredients to the cart :)';
 
   addHandlerRender(handler) {
     window.addEventListener('load', handler);
+  }
+
+  addHandlerDelProduct(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--del-product');
+      if (!btn) return;
+
+      const productEl = btn.closest('tr');
+      const productArr = productEl.textContent
+        .trim()
+        .split('\n')
+        .map(el => el.trim());
+      const [quantity, unit, description] = productArr;
+
+      const productObj = {
+        quantity: quantity === '—' ? null : eval(quantity),
+        unit: unit === '—' ? '' : unit,
+        description,
+      };
+
+      handler(productObj);
+    });
   }
 
   _generateMarkup() {
@@ -29,9 +51,18 @@ class shoppingCartView extends View {
       .map(ingr => {
         return `
           <tr>
-            <td>${ingr.quantity ? ingr.quantity : '—'}</td>
+            <td>${
+              ingr.quantity ? new Fraction(ingr.quantity).toString() : '—'
+            }</td>
             <td>${ingr.unit ? ingr.unit : '—'}</td>
             <td>${ingr.description}</td>
+            <td>
+              <button class="btn--tiny btn--del-product">
+                <svg>
+                  <use href="${icons}#icon-minus-circle"></use>
+                </svg>
+              </button>
+            </td>
           </tr>
         `;
       })

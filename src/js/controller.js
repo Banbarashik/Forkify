@@ -80,10 +80,9 @@ const controlBookmarksLoad = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlShoppingCart = function () {
-  model.addProducts();
-
-  console.log(model.state.products);
+const controlShoppingCart = function (product) {
+  if (product) model.deleteProduct(product);
+  else model.addProducts();
 
   shoppingCartView.render(model.state.products);
 };
@@ -125,6 +124,7 @@ const controlRecipeUpload = async function (newRecipe) {
 const init = function () {
   bookmarksView.addHandlerRender(controlBookmarksLoad);
   addRecipeView.addHandlerUploadBtn(controlRecipeUpload);
+  shoppingCartView.addHandlerDelProduct(controlShoppingCart);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerServingBtns(controlServings);
   recipeView.addHandlerBookmarkBtn(controlBookmarks);
