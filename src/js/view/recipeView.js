@@ -31,6 +31,14 @@ class RecipeView extends View {
     });
   }
 
+  addHandlerShoppingCartBtn(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.recipe__btn--shopping-cart');
+      if (!btn) return;
+      handler();
+    });
+  }
+
   _generateMarkup() {
     return `
     <figure class="recipe__fig">

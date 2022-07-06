@@ -11,6 +11,7 @@ export const state = {
     recipes: [],
   },
   bookmarks: [],
+  products: [],
 };
 
 const formatRecipeObj = function (recipe) {
@@ -93,7 +94,7 @@ const storeBookmarks = function () {
 export const loadBookmarks = function () {
   const bookmarksStr = localStorage.getItem('bookmarks');
 
-  // Don't overwrite [bookmarks] if localStorage is empty
+  // Don't overwrite state.bookmarks if localStorage is empty
   if (!bookmarksStr) return;
 
   state.bookmarks = JSON.parse(bookmarksStr);
@@ -109,6 +110,10 @@ export const addBookmark = function () {
 
   // Store the bookmarks array in the localStorage
   storeBookmarks();
+};
+
+export const addProducts = function () {
+  state.products.push(...state.recipe.ingredients);
 };
 
 export const deleteBookmark = function () {

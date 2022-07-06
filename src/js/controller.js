@@ -6,6 +6,7 @@ import paginationView from './view/paginationView.js';
 import bookmarksView from './view/bookmarksView.js';
 import addRecipeView from './view/addRecipeView.js';
 import bookmarksView from './view/bookmarksView.js';
+import shoppingCartView from './view/shoppingCartView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -79,6 +80,14 @@ const controlBookmarksLoad = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+const controlShoppingCart = function () {
+  model.addProducts();
+
+  console.log(model.state.products);
+
+  shoppingCartView.render(model.state.products);
+};
+
 const controlRecipeUpload = async function (newRecipe) {
   try {
     console.log(newRecipe);
@@ -119,6 +128,7 @@ const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerServingBtns(controlServings);
   recipeView.addHandlerBookmarkBtn(controlBookmarks);
+  recipeView.addHandlerShoppingCartBtn(controlShoppingCart);
   resultsView.addHandlerRender(controlResults);
   paginationView.addHandlerPaginationBtns(controlPagination);
 };
