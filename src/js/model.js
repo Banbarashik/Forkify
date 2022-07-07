@@ -12,6 +12,15 @@ export const state = {
   },
   bookmarks: [],
   products: [],
+  meals: [
+    { dayName: 'monday' },
+    { dayName: 'tuesday' },
+    { dayName: 'wednesday' },
+    { dayName: 'thursday' },
+    { dayName: 'friday' },
+    { dayName: 'saturday' },
+    { dayName: 'sunday' },
+  ],
 };
 
 const formatRecipeObj = function (recipe) {
