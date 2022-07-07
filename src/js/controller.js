@@ -136,3 +136,8 @@ const init = function () {
 };
 
 init();
+
+// TODO:
+// 1) make (-) btns in the shoppingCart appear only on hover
+// 2) fix shoppingCart's table's layout
+// 3) render a spinner for the search panel
