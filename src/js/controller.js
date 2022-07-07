@@ -36,6 +36,8 @@ const controlRecipes = async function () {
 
 const controlResults = async function (query) {
   try {
+    resultsView.renderSpinner();
+
     await model.loadResults(query);
 
     resultsView.render(model.getSearchResultsByPage(1));
@@ -136,8 +138,3 @@ const init = function () {
 };
 
 init();
-
-// TODO:
-// 1) make (-) btns in the shoppingCart appear only on hover
-// 2) fix shoppingCart's table's layout
-// 3) render a spinner for the search panel
