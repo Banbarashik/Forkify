@@ -1,0 +1,64 @@
+.mealPlan {
+  position: fixed;
+  top: 4vw;
+  right: 6rem;
+  transform: translateX(100%);
+  transition: all 0.5s 0.2s;
+
+  display: grid;
+  grid-template-columns: repeat(3, 10rem);
+  grid-template-rows: repeat(3, 10rem);
+  gap: 2rem;
+  padding: 3rem 1.5rem 3rem 6rem;
+  border: {
+    top-left-radius: 40px;
+    bottom-left-radius: 40px;
+  }
+
+  background-color: $color-grad-3;
+  box-shadow: 0 2rem 6rem 0.5rem rgba($color-grey-dark-1, 0.2);
+
+  &__title {
+    position: absolute;
+    top: 50%;
+    left: 3rem;
+    transform-origin: 0 0;
+    transform: rotate(90deg) translate(-50%, -50%);
+
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    line-height: 1;
+    cursor: default;
+  }
+
+  &__item {
+    overflow: hidden;
+    border: {
+      bottom-left-radius: 15px;
+      bottom-right-radius: 15px;
+    }
+
+    &-title {
+      text-align: center;
+      font-size: 1.4rem;
+    }
+
+    &-link {
+      display: block;
+      height: 100%;
+      background-color: $color-grad-4;
+      border-radius: 15px;
+    }
+
+    &-img {
+      width: 100%;
+      border-radius: 15px;
+    }
+  }
+
+  &:hover {
+    right: 0;
+    transform: none;
+  }
+}

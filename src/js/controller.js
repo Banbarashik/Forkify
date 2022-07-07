@@ -138,3 +138,7 @@ const init = function () {
 };
 
 init();
+
+// TODO:
+// 1) Write HTML markup for the schedule panel
+// 2) Write styles for the panel
