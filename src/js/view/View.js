@@ -35,12 +35,13 @@ export default class View {
       )
         curEl.textContent = newEl.textContent;
 
-      if (!newEl.isEqualNode(curEl))
+      if (!newEl.isEqualNode(curEl)) {
         // Go through new elements attributes and set them to current elements
         // that has changed
         Array.from(newEl.attributes).forEach(attr =>
           curEl.setAttribute(attr.name, attr.value)
         );
+      }
     });
   }
 

@@ -11,6 +11,7 @@ import shoppingCartView from './view/shoppingCartView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { async } from 'regenerator-runtime';
+import mealPlanView from './view/mealPlanView.js';
 
 const controlRecipes = async function () {
   try {
@@ -74,6 +75,12 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+const controlMealPlan = function (dayNum) {
+  model.addMeal(dayNum);
+
+  mealPlanView.update(model.state.meals);
+};
+
 const controlLocalStorageLoad = function () {
   // Load the bookmarks array from the localStorage
   model.loadLocalStorage();
@@ -130,8 +137,9 @@ const init = function () {
   addRecipeView.addHandlerUploadBtn(controlRecipeUpload);
   shoppingCartView.addHandlerDelProduct(controlShoppingCart);
   recipeView.addHandlerRender(controlRecipes);
-  recipeView.addHandlerServingBtns(controlServings);
   recipeView.addHandlerBookmarkBtn(controlBookmarks);
+  recipeView.addHandlerServingBtns(controlServings);
+  recipeView.addHandlerWeekDayBtns(controlMealPlan);
   recipeView.addHandlerShoppingCartBtn(controlShoppingCart);
   resultsView.addHandlerRender(controlResults);
   paginationView.addHandlerPaginationBtns(controlPagination);

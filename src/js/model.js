@@ -131,6 +131,10 @@ export const deleteBookmark = function () {
   storeLocalStorage('bookmarks', state.bookmarks);
 };
 
+export const addMeal = function (dayNum) {
+  state.meals[dayNum].recipe = state.recipe;
+};
+
 export const addProducts = function () {
   state.products.push(...state.recipe.ingredients);
   storeLocalStorage('products', state.products);

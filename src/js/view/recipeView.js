@@ -13,6 +13,14 @@ class RecipeView extends View {
     );
   }
 
+  addHandlerShoppingCartBtn(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.recipe__btn--shopping-cart');
+      if (!btn) return;
+      handler();
+    });
+  }
+
   addHandlerBookmarkBtn(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--bookmark');
@@ -31,11 +39,13 @@ class RecipeView extends View {
     });
   }
 
-  addHandlerShoppingCartBtn(handler) {
+  addHandlerWeekDayBtns(handler) {
     this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.recipe__btn--shopping-cart');
+      const btn = e.target.closest('.btn--weekDay');
       if (!btn) return;
-      handler();
+
+      const { dayNum } = btn.dataset;
+      handler(+dayNum);
     });
   }
 
@@ -85,6 +95,16 @@ class RecipeView extends View {
             </svg>
           </button>
         </div>
+      </div>
+
+      <div>
+        <button data-day-num="0" class="btn--weekDay">M</button>
+        <button data-day-num="1" class="btn--weekDay">T</button>
+        <button data-day-num="2" class="btn--weekDay">W</button>
+        <button data-day-num="3" class="btn--weekDay">T</button>
+        <button data-day-num="4" class="btn--weekDay">F</button>
+        <button data-day-num="5" class="btn--weekDay">S</button>
+        <button data-day-num="6" class="btn--weekDay">S</button>
       </div>
 
       <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
