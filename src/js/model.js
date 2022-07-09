@@ -24,7 +24,7 @@ export const state = {
 };
 
 const formatRecipeObj = function (recipe) {
-  state.recipe = {
+  return {
     title: recipe.title,
     id: recipe.id,
     image: recipe.image_url,
@@ -42,12 +42,19 @@ export const loadRecipe = async function (id) {
     const data = await AJAX(`${API_URL}${id}?key=${API_KEY}`);
 
     const { recipe } = data.data;
-    formatRecipeObj(recipe);
+    state.recipe = formatRecipeObj(recipe);
 
     // Check if the recipe is bookmarked
     if (state.bookmarks.some(rec => rec.id === state.recipe.id))
       state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
+
+    // Find out which days the recipe is assigned to
+    const days = state.meals
+      .filter(meal => meal.recipe?.id === state.recipe.id)
+      .map(meal => meal.dayName);
+
+    state.recipe.days = days;
 
     console.log(state.recipe);
   } catch (err) {
@@ -131,8 +138,17 @@ export const deleteBookmark = function () {
   storeLocalStorage('bookmarks', state.bookmarks);
 };
 
-export const addMeal = function (dayNum) {
+export const addMeal = function (dayNum, dayName) {
   state.meals[dayNum].recipe = state.recipe;
+  state.recipe.days.push(dayName);
+};
+
+export const removeMeal = function (dayNum, dayName) {
+  delete state.meals[dayNum].recipe;
+
+  const index = state.recipe.days.findIndex(day => day === dayName);
+
+  state.recipe.days.splice(index, 1);
 };
 
 export const addProducts = function () {
@@ -154,48 +170,6 @@ export const deleteProduct = function (product) {
 
 export const uploadRecipe = async function (newRecipe) {
   try {
-    /*
-    const ingredients = [];
-
-    for (let i = 1; i <= 6; i++) {
-      // Returns [[ingr-1-q, value], [ingr-1-u, value], [ingr-1-d, value]]
-      const arr = Object.entries(newRecipe).filter(entry =>
-        entry[0].startsWith(`ingredient-${i}`)
-      );
-
-      const quantity = arr[0][1],
-        unit = arr[1][1],
-        description = arr[2][1];
-
-      // API requires an ingredient to have a description prop
-      if (!description) break;
-
-      const recObj = {
-        quantity: quantity ? quantity : null,
-        unit,
-        description,
-      };
-
-      ingredients.push(recObj);
-    }
-    */
-
-    // Create a property 'ingredient' containing recipes' objects in
-    // {quantity, unit, description} format
-    /*
-    const ingredients = Object.entries(newRecipe)
-      .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
-      .map(ing => {
-        const ingsArr = ing[1].split(',').map(el => el.trim());
-        const ingsObj = {
-          quantity: ingsArr[0] ? ingsArr[0] : null,
-          unit: ingsArr[1],
-          description: ingsArr[2],
-        };
-        return ingsObj;
-      });
-    */
-
     const ingrs = [];
     const ingredients = Object.entries(newRecipe)
       .filter(entry => entry[0].startsWith('ingredient'))
@@ -228,15 +202,16 @@ export const uploadRecipe = async function (newRecipe) {
       servings: newRecipe.servings,
       publisher: newRecipe.publisher,
       ingredients,
+      days: [],
     };
 
     const data = await AJAX(`${API_URL}?key=${API_KEY}`, userRecipe);
 
     // Response: recipe with id and key
     const { recipe } = data.data;
-    formatRecipeObj(recipe);
+    state.recipe = formatRecipeObj(recipe);
 
-    storeBookmarks();
+    storeLocalStorage('bookmarks', state.bookmarks);
     console.log(state.recipe);
   } catch (err) {
     throw err;

@@ -15,10 +15,11 @@ class mealPlanView extends View {
   _generateMarkupMealDay() {
     return this._data
       .map(meal => {
-        console.log(meal);
         return `
         <div class="mealPlan__item">
-          <p class="mealPlan__item-title">${meal.dayName}</p>
+          <p class="mealPlan__item-title">${
+            meal.dayName.charAt(0).toUpperCase() + meal.dayName.slice(1)
+          }</p>
           <a href="#${
             meal.recipe?.id ? meal.recipe.id : ''
           }" class="mealPlan__item-link">

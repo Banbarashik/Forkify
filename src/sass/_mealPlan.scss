@@ -6,8 +6,8 @@
   transition: all 0.5s 0.2s;
 
   display: grid;
-  grid-template-columns: repeat(3, 10rem);
-  grid-template-rows: repeat(3, 10rem);
+  grid-template-columns: repeat(3, 12rem);
+  grid-template-rows: repeat(3, 13rem);
   gap: 2rem;
   padding: 3rem 1.5rem 3rem 6rem;
   border: {
@@ -27,7 +27,7 @@
 
     text-transform: uppercase;
     font-size: 2.2rem;
-    letter-spacing: 3px;
+    letter-spacing: 6px;
     line-height: 1;
     cursor: default;
   }
@@ -52,8 +52,10 @@
     }
 
     &-img {
+      height: 100%;
       width: 100%;
       border-radius: 15px;
+      object-fit: cover;
     }
   }
 

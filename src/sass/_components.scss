@@ -92,11 +92,12 @@
 
 .btn--round {
   background-image: $gradient;
+  color: #fff;
   border-radius: 50%;
   border: none;
-  cursor: pointer;
   height: 4.5rem;
   width: 4.5rem;
+  cursor: pointer;
   // margin-left: auto;
   transition: all 0.2s;
 
@@ -125,6 +126,7 @@
   border: none;
   background: none;
   cursor: pointer;
+  transition: all 0.3s;
 
   svg {
     height: 100%;
@@ -149,6 +151,28 @@
 
   &:not(:last-child) {
     margin-right: 0.3rem;
+  }
+}
+
+.btn--weekDay {
+  border: 2px solid $color-primary;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $color-primary;
+  transition: transform 0.3s;
+
+  &.active {
+    background-color: $color-primary;
+    color: #fff;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 

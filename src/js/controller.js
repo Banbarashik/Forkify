@@ -75,9 +75,12 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlMealPlan = function (dayNum) {
-  model.addMeal(dayNum);
+const controlMealPlan = function (dayNum, dayName) {
+  if (model.state.recipe.days.includes(dayName))
+    model.removeMeal(dayNum, dayName);
+  else model.addMeal(dayNum, dayName);
 
+  recipeView.update(model.state.recipe);
   mealPlanView.update(model.state.meals);
 };
 

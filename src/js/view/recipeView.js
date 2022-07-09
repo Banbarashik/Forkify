@@ -45,7 +45,8 @@ class RecipeView extends View {
       if (!btn) return;
 
       const { dayNum } = btn.dataset;
-      handler(+dayNum);
+      const dayName = btn.title.toLowerCase();
+      handler(+dayNum, dayName);
     });
   }
 
@@ -97,14 +98,28 @@ class RecipeView extends View {
         </div>
       </div>
 
-      <div>
-        <button data-day-num="0" class="btn--weekDay">M</button>
-        <button data-day-num="1" class="btn--weekDay">T</button>
-        <button data-day-num="2" class="btn--weekDay">W</button>
-        <button data-day-num="3" class="btn--weekDay">T</button>
-        <button data-day-num="4" class="btn--weekDay">F</button>
-        <button data-day-num="5" class="btn--weekDay">S</button>
-        <button data-day-num="6" class="btn--weekDay">S</button>
+      <div class="recipe__days-buttons">
+        <button data-day-num="0" title="Monday" class="btn--tiny btn--weekDay ${
+          this._data.days.includes('monday') ? 'active' : ''
+        }">M</button>
+        <button data-day-num="1" title="Tuesday" class="btn--tiny btn--weekDay ${
+          this._data.days.includes('tuesday') ? 'active' : ''
+        }">T</button>
+        <button data-day-num="2" title="Wednesday" class="btn--tiny btn--weekDay ${
+          this._data.days.includes('wednesday') ? 'active' : ''
+        }">W</button>
+        <button data-day-num="3" title="Thursday" class="btn--tiny btn--weekDay ${
+          this._data.days.includes('thursday') ? 'active' : ''
+        }">T</button>
+        <button data-day-num="4" title="Friday" class="btn--tiny btn--weekDay ${
+          this._data.days.includes('friday') ? 'active' : ''
+        }">F</button>
+        <button data-day-num="5" title="Saturday" class="btn--tiny btn--weekDay ${
+          this._data.days.includes('saturday') ? 'active' : ''
+        }">S</button>
+        <button data-day-num="6" title="Sunday" class="btn--tiny btn--weekDay ${
+          this._data.days.includes('sunday') ? 'active' : ''
+        }">S</button>
       </div>
 
       <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
