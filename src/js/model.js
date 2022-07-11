@@ -56,8 +56,6 @@ export const loadRecipe = async function (id) {
       .map(meal => meal.dayName);
 
     state.recipe.days = days;
-
-    console.log(state.recipe);
   } catch (err) {
     throw err;
   }
@@ -204,7 +202,6 @@ export const uploadRecipe = async function (newRecipe) {
     state.recipe = formatRecipeObj(recipe);
 
     storeLocalStorage('bookmarks', state.bookmarks);
-    console.log(state.recipe);
   } catch (err) {
     throw err;
   }

@@ -99,7 +99,6 @@ const controlShoppingCart = function (product) {
 
 const controlRecipeUpload = async function (newRecipe) {
   try {
-    console.log(newRecipe);
     // Close modal window
     addRecipeView.toggleHidden();
 
