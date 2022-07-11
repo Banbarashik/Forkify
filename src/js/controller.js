@@ -91,6 +91,7 @@ const controlLocalStorageLoad = function () {
   // Render the recieved bookmarks array
   bookmarksView.render(model.state.bookmarks);
   shoppingCartView.render(model.state.products);
+  mealPlanView.render(model.state.meals);
 };
 
 const controlShoppingCart = function (product) {
@@ -137,6 +138,7 @@ const controlRecipeUpload = async function (newRecipe) {
 const init = function () {
   bookmarksView.addHandlerRender(controlLocalStorageLoad);
   shoppingCartView.addHandlerRender(controlLocalStorageLoad);
+  mealPlanView.addHandlerRender(controlLocalStorageLoad);
   addRecipeView.addHandlerUploadBtn(controlRecipeUpload);
   shoppingCartView.addHandlerDelProduct(controlShoppingCart);
   recipeView.addHandlerRender(controlRecipes);

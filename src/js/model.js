@@ -106,10 +106,12 @@ export const updateServings = function (newServings) {
 export const loadLocalStorage = function () {
   const bookmarksStr = localStorage.getItem('bookmarks');
   const productsStr = localStorage.getItem('products');
+  const mealsStr = localStorage.getItem('meals');
 
   // Don't overwrite if localStorage is empty
   if (bookmarksStr) state.bookmarks = JSON.parse(bookmarksStr);
   if (productsStr) state.products = JSON.parse(productsStr);
+  if (mealsStr) state.meals = JSON.parse(mealsStr);
 };
 
 export const addBookmark = function () {
@@ -141,6 +143,7 @@ export const deleteBookmark = function () {
 export const addMeal = function (dayNum, dayName) {
   state.meals[dayNum].recipe = state.recipe;
   state.recipe.days.push(dayName);
+  storeLocalStorage('meals', state.meals);
 };
 
 export const removeMeal = function (dayNum, dayName) {
