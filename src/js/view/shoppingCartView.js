@@ -7,10 +7,6 @@ class shoppingCartView extends View {
   _errorMessage =
     'No products yet. Find a nice recipe and add its ingredients to the cart :)';
 
-  addHandlerRender(handler) {
-    window.addEventListener('load', handler);
-  }
-
   addHandlerDelProduct(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--del-product');

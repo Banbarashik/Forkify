@@ -34,6 +34,7 @@ const formatRecipeObj = function (recipe) {
     servings: recipe.servings,
     publisher: recipe.publisher,
     ...(recipe.key && { key: recipe.key }),
+    days: [],
   };
 };
 
@@ -101,17 +102,6 @@ export const updateServings = function (newServings) {
   state.recipe.ingredients.forEach(ing => {
     ing.quantity = (ing.quantity * newServings) / oldServings;
   });
-};
-
-export const loadLocalStorage = function () {
-  const bookmarksStr = localStorage.getItem('bookmarks');
-  const productsStr = localStorage.getItem('products');
-  const mealsStr = localStorage.getItem('meals');
-
-  // Don't overwrite if localStorage is empty
-  if (bookmarksStr) state.bookmarks = JSON.parse(bookmarksStr);
-  if (productsStr) state.products = JSON.parse(productsStr);
-  if (mealsStr) state.meals = JSON.parse(mealsStr);
 };
 
 export const addBookmark = function () {
@@ -205,7 +195,6 @@ export const uploadRecipe = async function (newRecipe) {
       servings: newRecipe.servings,
       publisher: newRecipe.publisher,
       ingredients,
-      days: [],
     };
 
     const data = await AJAX(`${API_URL}?key=${API_KEY}`, userRecipe);

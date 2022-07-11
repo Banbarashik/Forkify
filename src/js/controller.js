@@ -1,5 +1,6 @@
 import * as model from './model.js';
-import { MODAL_CLOSE_SEC } from './config.js';
+import { loadLocalStorage } from './helper.js';
+
 import recipeView from './view/recipeView.js';
 import resultsView from './view/resultsView.js';
 import paginationView from './view/paginationView.js';
@@ -7,11 +8,16 @@ import bookmarksView from './view/bookmarksView.js';
 import addRecipeView from './view/addRecipeView.js';
 import bookmarksView from './view/bookmarksView.js';
 import shoppingCartView from './view/shoppingCartView.js';
+import mealPlanView from './view/mealPlanView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { async } from 'regenerator-runtime';
-import mealPlanView from './view/mealPlanView.js';
+
+const controlLocalStorage = function (keys, views) {
+  keys.forEach(key => (model.state[key] = loadLocalStorage(key)));
+  views.forEach((view, i) => view.render(model.state[keys[i]]));
+};
 
 const controlRecipes = async function () {
   try {
@@ -84,16 +90,6 @@ const controlMealPlan = function (dayNum, dayName) {
   mealPlanView.update(model.state.meals);
 };
 
-const controlLocalStorageLoad = function () {
-  // Load the bookmarks array from the localStorage
-  model.loadLocalStorage();
-
-  // Render the recieved bookmarks array
-  bookmarksView.render(model.state.bookmarks);
-  shoppingCartView.render(model.state.products);
-  mealPlanView.render(model.state.meals);
-};
-
 const controlShoppingCart = function (product) {
   if (product) model.deleteProduct(product);
   else model.addProducts();
@@ -136,9 +132,10 @@ const controlRecipeUpload = async function (newRecipe) {
 };
 
 const init = function () {
-  bookmarksView.addHandlerRender(controlLocalStorageLoad);
-  shoppingCartView.addHandlerRender(controlLocalStorageLoad);
-  mealPlanView.addHandlerRender(controlLocalStorageLoad);
+  controlLocalStorage(
+    ['bookmarks', 'products', 'meals'],
+    [bookmarksView, shoppingCartView, mealPlanView]
+  );
   addRecipeView.addHandlerUploadBtn(controlRecipeUpload);
   shoppingCartView.addHandlerDelProduct(controlShoppingCart);
   recipeView.addHandlerRender(controlRecipes);
@@ -151,7 +148,3 @@ const init = function () {
 };
 
 init();
-
-// TODO:
-// 1) Write HTML markup for the schedule panel
-// 2) Write styles for the panel

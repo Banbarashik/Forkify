@@ -1,4 +1,5 @@
 import icons from './../../img/icons.svg';
+import { NOTIF_CLOSE_SEC } from '../config';
 
 export default class View {
   render(data, render = undefined) {
@@ -114,6 +115,6 @@ export default class View {
         this.remove();
       });
       _toggleNotif();
-    }, 2000);
+    }, NOTIF_CLOSE_SEC);
   }
 }

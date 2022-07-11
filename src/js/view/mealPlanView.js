@@ -5,10 +5,6 @@ class mealPlanView extends View {
   _parentElement = document.querySelector('.mealPlan');
   _data;
 
-  addHandlerRender(handler) {
-    window.addEventListener('load', handler);
-  }
-
   _generateMarkup() {
     return `
       <p class="mealPlan__title">Your weekly meal plan</p>
