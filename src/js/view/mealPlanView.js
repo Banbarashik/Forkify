@@ -20,9 +20,8 @@ class mealPlanView extends View {
           <p class="mealPlan__item-title">${
             meal.dayName.charAt(0).toUpperCase() + meal.dayName.slice(1)
           }</p>
-          <a href="#${
-            meal.recipe?.id ? meal.recipe.id : ''
-          }" class="mealPlan__item-link">
+          <a href="#${meal.recipe?.id ? meal.recipe.id : ''}"
+          class="mealPlan__item-link">
             <img
               src="${meal.recipe?.image ? meal.recipe.image : '#'}"
               alt="${meal.recipe?.title}"

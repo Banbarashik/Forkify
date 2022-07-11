@@ -49,6 +49,10 @@
       height: 100%;
       background-color: $color-grad-4;
       border-radius: 15px;
+
+      &[href='#'] {
+        pointer-events: none;
+      }
     }
 
     &-img {

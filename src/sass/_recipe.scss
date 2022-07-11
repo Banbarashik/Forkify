@@ -76,7 +76,10 @@
     display: flex;
     align-items: center;
 
-    &:not(:last-child) {
+    // &:not(:last-child) {
+    //   margin-right: 4.5rem;
+    // }
+    &:first-child {
       margin-right: 4.5rem;
     }
   }
@@ -99,6 +102,10 @@
     transform: translateY(-1px);
   }
 
+  &__days-buttons {
+    margin-left: auto;
+  }
+
   &__user-generated {
     background-color: darken($color-grey-light-2, 2%);
 
@@ -111,6 +118,10 @@
 
     margin-left: auto;
     margin-right: 1.75rem;
+
+    &.hidden {
+      margin-left: 0;
+    }
 
     svg {
       height: 2.25rem;
