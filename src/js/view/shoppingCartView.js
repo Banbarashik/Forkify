@@ -1,3 +1,4 @@
+import fracty from 'fracty';
 import icons from 'url:./../../img/icons.svg';
 import View from './View.js';
 
@@ -47,9 +48,7 @@ class shoppingCartView extends View {
       .map(ingr => {
         return `
           <tr>
-            <td>${
-              ingr.quantity ? new Fraction(ingr.quantity).toString() : '—'
-            }</td>
+            <td>${ingr.quantity ? fracty(ingr.quantity).toString() : '—'}</td>
             <td>${ingr.unit ? ingr.unit : '—'}</td>
             <td>${ingr.description}</td>
             <td>
