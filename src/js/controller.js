@@ -10,8 +10,6 @@ import bookmarksView from './view/bookmarksView.js';
 import shoppingCartView from './view/shoppingCartView.js';
 import mealPlanView from './view/mealPlanView.js';
 
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import { async } from 'regenerator-runtime';
 
 const controlLocalStorage = function (keys, views) {
