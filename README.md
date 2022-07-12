@@ -2,7 +2,7 @@
 
 ## Description
 
-A web application with functionality of searching, storing and adding recipes. Made with JavaScript, MVC architecture, Forkify API, Parcel, Fraction.js, core-js, regenerator-runtime.
+A web application with functionality of searching, storing and adding recipes. Made with JavaScript, MVC architecture, Forkify API, Parcel, Fracty.
 
 ### Features
 
