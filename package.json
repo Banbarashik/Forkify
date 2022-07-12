@@ -10,10 +10,12 @@
   "author": "Banbarashik",
   "license": "ISC",
   "dependencies": {
-    "@parcel/transformer-sass": "^2.6.0",
     "core-js": "^3.23.1",
     "fractional": "^1.0.0",
-    "parcel": "^2.6.0",
     "regenerator-runtime": "^0.13.9"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "parcel": "^2.6.0"
   }
 }

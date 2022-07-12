@@ -142,7 +142,7 @@ class RecipeView extends View {
         ${this._generateMarkupIngredients()}
       </ul>
       <button class="btn--small recipe__btn recipe__btn--shopping-cart">
-        Add to the shopping cart
+        Add to the shopping list
       </button>
     </div>
 
