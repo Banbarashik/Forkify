@@ -2,19 +2,18 @@
   "name": "forkify",
   "version": "1.0.0",
   "description": "an app to find and manage recipes",
+  "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "author": "Banbarashik",
   "license": "ISC",
-  "devDependencies": {
-    "@parcel/transformer-sass": "^2.6.0",
-    "parcel": "^2.6.0"
-  },
   "dependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
     "core-js": "^3.23.1",
     "fractional": "^1.0.0",
+    "parcel": "^2.6.0",
     "regenerator-runtime": "^0.13.9"
   }
 }
