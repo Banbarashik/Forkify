@@ -129,6 +129,7 @@ export const deleteBookmark = function () {
 };
 
 export const addMeal = function (dayNum, dayName) {
+  console.log(state.meals);
   state.meals[dayNum].recipe = state.recipe;
   state.recipe.days.push(dayName);
   storeLocalStorage('meals', state.meals);

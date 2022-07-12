@@ -13,7 +13,10 @@ import mealPlanView from './view/mealPlanView.js';
 import { async } from 'regenerator-runtime';
 
 const controlLocalStorage = function (keys, views) {
-  keys.forEach(key => (model.state[key] = loadLocalStorage(key)));
+  keys.forEach(key => {
+    const storedObj = loadLocalStorage(key);
+    if (storedObj) model.state[key] = storedObj;
+  });
   views.forEach((view, i) => view.render(model.state[keys[i]]));
 };
 
